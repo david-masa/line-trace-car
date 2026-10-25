@@ -18,6 +18,11 @@
  */
 void Input_Task(void);
 
+//もし各モジュールごとのヘッダーを省略したいならメイン関数のint mainの前に、プロトタイプ宣言する必要がある。
+//extern void Input_Task(void);
+//extern void Compute_Task(void);
+//extern void Output_Task(void);
+
 // ※もし、他のファイルでも使いたい固有の定数があればここで #define することもあるよ
 
 #endif /* INPUT_H_ */
