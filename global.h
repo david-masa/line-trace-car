@@ -56,4 +56,6 @@ extern uint8_t g_line_sensor_pattern;
 // ④ その他の共通管理変数（例: 走行フラグや汎用カウンターなど）
 extern uint8_t g_system_flags;
 
+extern bool          g_white_button;        // 白ボタン押下状態 (true/false)
+
 #endif /* GLOBAL_H_ */
