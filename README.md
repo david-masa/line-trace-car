@@ -1,5 +1,5 @@
 要求仕様書
-[01_要求仕様書.pdf](https://github.com/user-attachments/files/33943015/01_.pdf)
+https://github.com/david-masa/line-trace-car/blob/main/01_%E8%A6%81%E6%B1%82%E4%BB%95%E6%A7%98%E6%9B%B8.pdf
 
 
 要件定義書
