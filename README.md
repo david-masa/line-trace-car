@@ -1,3 +1,13 @@
+要求仕様書
+[01_要求仕様書.docx](https://github.com/user-attachments/files/33942979/01_.docx)
+
+要件定義書
+[要件定義書.docx](https://github.com/user-attachments/files/33942983/default.docx)
+
+基本設計書
+[03_基本設計書 (仮）.docx](https://github.com/user-attachments/files/33942986/03_.docx)
+
+
 ###グローバル変数
 
 g_system_state（システム状態：Init / Standby / Running / Onestop）
