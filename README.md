@@ -1,5 +1,6 @@
 要求仕様書
-[01_要求仕様書.docx](https://github.com/user-attachments/files/33942979/01_.docx)
+[01_要求仕様書.pdf](https://github.com/user-attachments/files/33943015/01_.pdf)
+
 
 要件定義書
 [要件定義書.docx](https://github.com/user-attachments/files/33942983/default.docx)
