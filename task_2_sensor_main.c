@@ -1,25 +1,45 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>				///文字列操作
+#include <wiringPi.h>
+#include <softPwm.h>
+#include <wiringPiI2C.h>		///I2C用(wiringPi)
+///#include "../MyHeadder.h"	///
+#include "../LIB/MyPi.h"		///Lib関連
 #include "Global.h"				///
+
 
 #include "task_2_sensor_main.h"	///これを、実際の名称にする
 
-int ReadSens(void);
-int ReadDistance(int fd2)
+//ボタン
+#define SW_RED		17
+#define SW_WHITE	27
 
+//フォトセンサ
+#define SEN_RIGHT	4
+#define SEN_CENTER	5
+#define SEN_LEFT	6
+
+
+const int inGpio[5] = {SW_RED, SW_WHITE, SEN_RIGHT, SEN_CENTER, SEN_LEFT};
+
+int ReadSens(void);
+int ReadDistance(int fd2);
+int fd2 = 0;
 
 int task_2_sensor_main(void)
 {
 	int i;		//初期化用
-	int fd2;	
-	int sensors = 0;
-	/*bool*/ gbBtn_wht_state = 0;	//白ボタン（初期化後、発進ボタン）
-    /*bool*/ gbBtn_red_state = 0;	//赤ボタン（緊急停止ボタン）
+		
+	/*bool*/ gbSys_Btn_wht_state = 0;	//白ボタン（初期化後、発進ボタン）
+    /*bool*/ gbSys_Btn_red_state = 0;	//赤ボタン（緊急停止ボタン）
     	
     	
-	switch (gsm_SysState)
+	switch (gsmSys_mode_state)
 	{
 	case  SM_INIT:
 			
-		printf("DEBUG PRINT SysState == %d\n", gsm_SysState);
+		printf("DEBUG PRINT SysState == %d\n", gsmSys_mode_state);
 		///初期化処理完了後に、初期化完了フラグを立ててください。
 		
 		wiringPiSetupGpio();
@@ -31,44 +51,54 @@ int task_2_sensor_main(void)
 	for(i = 0; i < 5; i++){
 		pullUpDnControl(inGpio[i], PUD_DOWN);
 	}	
-														
+		
+		fd2 = wiringPiI2CSetup(DST_S_ADR);
+													
 		break;
 	
 		
 	case  SM_WAIT:
 
-	do{
-		gbBtn_wht_state = digitalRead(SW_WHITE);
-	}while(gbBtn_wht_state == DBTN_OFF);
+		gbSys_Btn_wht_state = digitalRead(SW_WHITE);
+		
+		gbSys_Btn_red_state = digitalRead(SW_RED);
+		
 	
 		break;
 
 
 	case  SM_RUNNING:
-			
-		giDistSnsr_dist_value = ReadDistance(fd2);	//距離センサ（２進数）
+	
+		gbSys_Btn_wht_state = digitalRead(SW_WHITE);
 		
-		giLineSnsr_line_state = ReadSens();		//フォトセンサ
+		gbSys_Btn_red_state = digitalRead(SW_RED);
+			
+		giSys_DistSnsr_dist_value = ReadDistance(fd2);	//距離センサ（２進数）
+		
+		giSys_LineSnsr_line_state = ReadSens();			//フォトセンサ
+		
 		
 		break;
 
 
 	case  SM_ONESTOP:
-	
-		giDistSnsr_dist_value = ReadDistance(fd2);	//距離センサ（２進数）
 		
-		giLineSnsr_line_state = ReadSens();		//フォトセンサ
+		giSys_DistSnsr_dist_value = ReadDistance(fd2);	//距離センサ（２進数）
+		
+		giSys_LineSnsr_line_state = ReadSens();		//フォトセンサ
+		
+		gbSys_Btn_red_state = digitalRead(SW_RED);
 		
 		break;
 
 
 	case  SM_EMER:
-		printf("DEBUG PRINT  SysState == %d\n", gsm_SysState);
+		printf("DEBUG PRINT  SysState == %d\n", gsmSys_mode_state);
 		///終了時処理完了後に、初期化完了フラグを落としてください。
 		
-		do{
-		gbBtn_red_state = digitalRead(SW_RED);
-		}while(	gbBtn_red_state == DBTN_OFF);
+			
+		gbSys_Btn_red_state = digitalRead(SW_RED);
+			
 	
 		break;
 
@@ -102,8 +132,8 @@ int ReadSens(void){					//センサの２進数処理
 
 int ReadDistance(int fd2){			//距離センサ（cm変換）
 	int disU8bit, disL4bit, dis12bit;
-	disU8bit = wiringPiI2CReadReg8(fd2, GP2Y0E03_DIS_U);
-	disL4bit = wiringPiI2CReadReg8(fd2, GP2Y0E03_DIS_L);
+	disU8bit = wiringPiI2CReadReg8(fd2, DST_S_RU1);
+	disL4bit = wiringPiI2CReadReg8(fd2, DST_S_RL1);
 	dis12bit = (disU8bit << 4) | disL4bit;
 	
 	dis12bit = dis12bit >> 6;
