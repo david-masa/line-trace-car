@@ -1,0 +1,222 @@
+#include <stdio.h> 
+#include <stdlib.h> 
+#include <string.h> 
+#include <wiringPi.h> 
+#include <wiringPiI2C.h> 
+#include <softPwm.h>
+#include "MyPi.h"
+
+#define LCD_ADR 0x3e 
+#define LCD_IR 0x00
+
+#define GP2Y0E03_ADR 0x40
+#define GP2Y0E03_DIS_U 0x5e
+#define GP2Y0E03_DIS_L 0x5f
+#define GP2Y0E03_RES 40
+#define DANGER 15
+
+#define SERVO 13
+
+#define SW_RED 17
+#define SW_WHITE 27
+
+#define SEN_RIGHT 4 
+#define SEN_CENTER 5 
+#define SEN_LEFT 6
+#define MOT_RIGHT2 22
+#define MOT_RIGHT1 23
+#define MOT_LEFT2 24
+#define MOT_LEFT1 25
+
+#define T 100
+
+const int inGpio[5] = {SW_RED, SW_WHITE, SEN_RIGHT, SEN_CENTER, SEN_LEFT};
+const int outGpio[4] = {MOT_RIGHT1, MOT_RIGHT2, MOT_LEFT1, MOT_LEFT2};
+
+int main(void)
+{
+	int fd1;
+	int fd2;
+	int i;
+	char s1[17];
+	int positionNow = 0;
+	int positionOld = 0;
+	int distanceNow = 0;
+	int distanceOld = 100;
+	int tOn = 0;
+	int pwmRange = 200;
+	
+	unsigned int turnTime = 0;
+	int turn = 0;
+	
+	unsigned int timeNow1;			//距離センサ
+	unsigned int timeOld1 = 0;
+	unsigned int timeNow2;			//サーボモータ
+	unsigned int timeOld2 = 0;
+	
+	wiringPiSetupGpio();
+	
+	for(i = 0; i < 5; i++){
+		pinMode(inGpio[i], INPUT); 
+	}
+
+	for(i = 0; i < 5; i++){
+		pullUpDnControl(inGpio[i], PUD_DOWN);
+	}
+	
+	for(i = 0; i < 4; i++){
+		pinMode(outGpio[i], OUTPUT);
+	}
+	
+	for(i = 0; i < 4; i++){
+		softPwmCreate(outGpio[i], 0, T);
+	}
+
+	
+	fd1 = wiringPiI2CSetup(LCD_ADR);
+	LcdSetup(fd1);
+	fd2 = wiringPiI2CSetup(GP2Y0E03_ADR);
+	
+	pinMode(SERVO, OUTPUT);
+	softPwmCreate(SERVO, tOn, pwmRange);
+	
+	softPwmWrite(SERVO, 8);
+	delay(1000);
+	softPwmWrite(SERVO, 24);
+	delay(1000);
+	softPwmWrite(SERVO, 15);
+	delay(1000);
+	
+	LcdClrMsg(fd1, "Push White SW");
+	do{
+		i = digitalRead(SW_WHITE);
+	}while( i != HIGH);
+	
+	while(1){
+		do{
+			timeNow1 =	millis();
+			if(timeNow1 > timeOld1 + GP2Y0E03_RES){
+				distanceNow = ReadDistance(fd2);
+				timeOld1 = timeNow1;
+			}
+			if(distanceNow != distanceOld){
+				LcdClear(fd1);
+				sprintf(s1, "%d cm", distanceNow);
+				LcdWriteString(fd1, s1);
+				
+				if(distanceNow < DANGER){
+					Stop();
+					softPwmWrite(SERVO, 0);
+				}
+			}
+			distanceOld = distanceNow;
+		}while(distanceNow < DANGER);
+		
+		positionNow = ReadSens();
+		
+		timeNow2 = millis();
+		if(timeNow2 > timeOld2 + 400){
+			switch(positionNow){
+				case 0b000:
+				case 0b101:
+				softPwmWrite(SERVO, 15);
+				break;
+
+				case 0b100:
+				case 0b110:
+				softPwmWrite(SERVO, 18);
+				break;
+
+				case 0b001:
+				case 0b011:
+				softPwmWrite(SERVO, 12);
+				break;
+
+				default:
+				softPwmWrite(SERVO, 0);
+				break;
+			}
+			timeOld2 = timeNow2;
+		}
+		
+		if(turn == 0){
+			if((positionOld == 0b010) && (positionNow == 0b100 || positionNow == 0b110)){
+				turn = 1;
+				turnTime = millis();
+			}
+			else if((positionOld == 0b010) && (positionNow == 0b001 || positionNow == 0b011)){
+				turn = 2;
+				turnTime = millis();
+			}
+		}
+		
+		if(turn == 1){
+			LcdClrMsg(fd1, "TURN RIGHT");
+			TurnRight();
+			if((millis() - turnTime) >= 135){
+				turn = 0;
+				Stop();
+				LcdClrMsg(fd1, "STOP");
+			}
+			
+		}
+		else if(turn == 2){
+			LcdClrMsg(fd1, "TURN Left");
+			TurnLeft();
+			if((millis() - turnTime) >= 135){
+				turn = 0;
+				Stop();
+				LcdClrMsg(fd1, "STOP");
+			}
+			
+		}
+		else{
+			switch(positionNow){					
+				case 0b000:
+				case 0b101:
+				Forward();
+				break;
+				
+				case 0b010:
+				Reverse();
+				break;
+
+				case 0b100:
+				softPwmWrite(MOT_RIGHT2, 0);
+				softPwmWrite(MOT_RIGHT1, 100);
+				softPwmWrite(MOT_LEFT2, 0);
+				softPwmWrite(MOT_LEFT1, 30);
+				break;
+				
+				case 0b110:
+				softPwmWrite(MOT_RIGHT2, 0);
+				softPwmWrite(MOT_RIGHT1, 100);
+				softPwmWrite(MOT_LEFT2, 0);
+				softPwmWrite(MOT_LEFT1, 1);
+				break;
+
+				case 0b001:
+				softPwmWrite(MOT_RIGHT2, 0);
+				softPwmWrite(MOT_RIGHT1, 30);
+				softPwmWrite(MOT_LEFT2, 0);
+				softPwmWrite(MOT_LEFT1, 100);
+				break;
+				
+				case 0b011:
+				softPwmWrite(MOT_RIGHT2, 0);
+				softPwmWrite(MOT_RIGHT1, 1);
+				softPwmWrite(MOT_LEFT2, 0);
+				softPwmWrite(MOT_LEFT1, 100);
+				break;
+
+				default:
+				Stop();
+				break;
+			}
+		}
+		positionOld = positionNow;
+	}
+		
+	return EXIT_SUCCESS;
+}
+
