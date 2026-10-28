@@ -17,6 +17,12 @@ https://github.com/david-masa/line-trace-car/blob/main/%E5%9F%BA%E6%9C%AC%E8%A8%
 
 受け入れテスト
 
+## 全体回路図
+<img width="1024" height="726" alt="ライントレースカー＿全体回路図" src="https://github.com/user-attachments/assets/436096e9-5113-4c67-98f8-805accc2e34c" />
+
+
+## センサ回路図
+<img width="1024" height="726" alt="ライントレースカー＿センサ回路図" src="https://github.com/user-attachments/assets/a2bdc3db-99d9-42b2-b49d-14b29cf30fd8" />
 
 ## 基本部品一覧
 | 部品記号 | 品名 | 値・型式 | メーカー | 個数 | 秋月型番 | 備考 |
