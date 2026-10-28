@@ -1,10 +1,3 @@
-/* task_4__main.c
- * LineTraceCar
- * 		by Team.A
- * custom:	gcc -Wall *.c -o app -lwiringPi -lpthread -g -O0 /home/pi/MyApp/LIB/libMyPi.a
- * org:		gcc -Wall -o "%e" "%f" -lwiringPi -lpthread -g -O0
- * Geanyのオプションの"%e"は実行ファイル名, "%f"はソースファイル名のこと
-*/
 /* task_1_modulename_lcd.c
  * LineTraceCar
  * 		by Team.A
@@ -24,14 +17,14 @@ printf("DEBUG PRINT SysState == %d\n", gsm_SysState);
 #include <wiringPi.h>
 #include <softPwm.h>
 #include <wiringPiI2C.h>	///I2C用(wiringPi)
-#include "MyHeadder.h"	///
+#include "task_4_lcdled_main.h"	///
 #include "/home/pi/MyApp/LIB/MyPi.h"	///Lib関連
 #include "Global.h"			///
 #include <stdbool.h>
 
 // LED
 #define LED_TOGGLE 800 //LEDのONOFFを切り替える時間
-#define LED_EMER 200 //LEDのONOFFを切り替える時間
+#define LED_EMER 200 //LEDの時間を早く切り替える
 #define LED1 20
 
 unsigned int LedtimeNow;
@@ -42,7 +35,8 @@ bool led_state = true;
 #define LCD_ADR 0x3e 
 int fd;
 int gsm_SysStateOld;
-
+/* プロトタイプ宣言 */
+void LcdClrMsg(int fd,char *s);	//ディスプレイクリア＋文字列表示
 
 int task_4_lcdled_main(void)
 {
@@ -64,6 +58,9 @@ int task_4_lcdled_main(void)
 		LcdClear(fd);
 		LcdWriteString(fd, "INITIALIZING");
 		gsm_SysStateOld = gsmSys_mode_state;
+		
+		
+		//gsmSys_mode_state = SM_RUNNING;//テスト用
 	
 		///初期化処理完了後に、初期化完了フラグを立ててください。
 		
@@ -73,14 +70,15 @@ int task_4_lcdled_main(void)
 	case  SM_WAIT:
 		
 		
+		//スタートしてLEDが光る動き
 		
-		LedtimeNow = millis();
+		LedtimeNow = millis(); 
 		
-		if(LedtimeNow > LedtimeOld + LED_TOGGLE){		
+		if(LedtimeNow > LedtimeOld + LED_TOGGLE){		//LedtimeNowがledtimeOldと切り替え時間を足した数より大きければ
 			printf("%d\n", LedtimeNow - LedtimeOld);
-			digitalWrite(LED1, led_state); 
-			led_state = !led_state;
-			LedtimeOld = LedtimeNow; 
+			digitalWrite(LED1, led_state); //LEDに書き込む
+			led_state = !led_state;//論理反転
+			LedtimeOld = LedtimeNow; //Nowの値をOldにいれます
 			printf("DEBUG PRINT SysState == %d\n", gsmSys_mode_state);
 		}
 		
@@ -92,31 +90,37 @@ int task_4_lcdled_main(void)
 		}
 				
 		
+		
 		break;
 		
 	case  SM_RUNNING:
 	
-		LedtimeNow = millis(); 
+		LedtimeNow = millis(); //LedtimeNowに現在時刻を入れている
 		
-		if(LedtimeNow > LedtimeOld + LED_TOGGLE){		
-			digitalWrite(LED1, led_state); 
+		if(LedtimeNow > LedtimeOld + LED_TOGGLE){		//LedtimeNowがledtimeOldと切り替え時間を足した数より大きければ
+			digitalWrite(LED1, led_state); //LEDに書き込む
 			led_state = !led_state;//論理反転
-			LedtimeOld = LedtimeNow; 
+			LedtimeOld = LedtimeNow; //Nowの値をOldにいれます
+		}
 	
 		if(gsm_SysStateOld != gsmSys_mode_state) {
 			LcdClear(fd);
 			LcdWriteString(fd, "RUNNING");
 			gsm_SysStateOld = gsmSys_mode_state;
 		}
+		
+		
+		
+		
 			
 		break;
 		
 	case  SM_ONESTOP:
-		LedtimeNow = millis(); 
-		if(LedtimeNow > LedtimeOld + LED_TOGGLE){		
-			digitalWrite(LED1, led_state); 
-			led_state = !led_state;
-			LedtimeOld = LedtimeNow; 
+		LedtimeNow = millis(); //LedtimeNowに現在時刻を入れている
+		if(LedtimeNow > LedtimeOld + LED_TOGGLE){		//LedtimeNowがledtimeOldと切り替え時間を足した数より大きければ
+			digitalWrite(LED1, led_state); //LEDに書き込む
+			led_state = !led_state;//論理反転
+			LedtimeOld = LedtimeNow; //Nowの値をOldにいれます
 		}
 		
 		if(gsm_SysStateOld != gsmSys_mode_state) {
@@ -127,12 +131,12 @@ int task_4_lcdled_main(void)
 		break;
 		
 	case  SM_EMER:
-		LedtimeNow = millis(); 
-		if(LedtimeNow > LedtimeOld + LED_EMER){		
+		LedtimeNow = millis(); //LedtimeNowに現在時刻を入れている
+		if(LedtimeNow > LedtimeOld + LED_EMER){		//LedtimeNowがledtimeOldと切り替え時間を足した数より大きければ
 			printf("%d\n", LedtimeNow - LedtimeOld);
-			digitalWrite(LED1, led_state); 
-			led_state = !led_state;
-			LedtimeOld = LedtimeNow; 
+			digitalWrite(LED1, led_state); //LEDに書き込む
+			led_state = !led_state;//論理反転
+			LedtimeOld = LedtimeNow; //Nowの値をOldにいれます
 			printf("DEBUG PRINT  SysState == %d\n", gsmSys_mode_state);
 		}
 		
@@ -146,6 +150,7 @@ int task_4_lcdled_main(void)
 		
 		///終了時処理完了後に、初期化完了フラグを落としてください。
 		
+		
 		break;
 
 	default:;
@@ -158,4 +163,8 @@ int task_4_lcdled_main(void)
     
 }
 
+void LcdClrMsg(int fd,char *s) {
+	LcdClear(fd);
+	LcdWriteString(fd,s);
+}
 

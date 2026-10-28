@@ -1,4 +1,4 @@
-/* task_5__main.h
+/* task_5_sound_main.h
  * LineTraceCar
  * 		by Team.A
  * custom:	gcc -Wall *.c -o app -lwiringPi -lpthread -g -O0 /home/pi/MyApp/LIB/libMyPi.a

@@ -42,11 +42,12 @@
 
 /*　デバッグ用なのでコメントアウト中
 #define  DEBUG		// マクロ定義により#ifdef #endifで挟まれた命令が有効になります。
-					// 命令を無効にする場合は、このマクロ定義をコメント文にしてビルドします。/
+					// 命令を無効にする場合は、このマクロ定義をコメント文にしてビルドします。*/
+//#define DEBUG_RUN
+//#define DEBUG_ObstBuzzer
 
-#define	DEBUG_RUN
-#define	DEBUG_ObstBuzzer
-*/
+
+
 
 /* プロトタイプ宣言 */
 void g(int oct, int solfa, int length); //1音を発生する関数
@@ -59,10 +60,10 @@ int task_5_sound_main(void)
 	static int MusicPlayComplete = 0;	//0:初期値・再生中 1:再生完了。走行開始時に使用。
 	//Switch構文内では宣言できないとコンパイルエラーが出たため、ここで宣言
         
-	switch (gsm_SysState)
+	switch (gsmSys_mode_state)
 	{
 	case  SM_INIT:
-		printf("DEBUG PRINT SysState == %d\n", gsm_SysState);
+		printf("DEBUG PRINT gsmSys_mode_state == %d\n", gsmSys_mode_state);
 		///初期化処理完了後に、初期化完了フラグを立ててください。
 		
 		wiringPiSetupGpio();  		    //BCMのGPIO番号を使用
@@ -71,31 +72,32 @@ int task_5_sound_main(void)
 		pwmSetMode(PWM_MODE_MS);        //信号波形モードの設定
 		
 		#ifdef DEBUG_RUN
-		gsm_SysState = SM_RUNNING;		
+		gsmSys_mode_state = SM_RUNNING;		
 		#endif
 		
 		break;
 	case  SM_WAIT:
+	
 		break;
 	case  SM_RUNNING:
 		if (MusicPlayComplete == 0){	
 			PlayMusic();
-			printf("RUNNING: Drive_inst = %d\n", giDrive_inst);
+			printf("RUNNING: Drive_inst = %d\n", giSys_Motor_drive_inst);
 			MusicPlayComplete = 1;
 			
 		#ifdef DEBUG_ObstBuzzer
-		gsm_SysState = SM_EMER;		
+		gsmSys_mode_state = SM_ONESTOP;		
 		#endif
 		
 		}
 		break;
 	case  SM_ONESTOP:
+		if (PlayObstacleBuzzer() == 1) {			
+			printf("DEBUG: Buzzer finished\n");
+		}
+		printf("DEBUG PRINT gsmSys_mode_state == %d\n", gsmSys_mode_state);
 		break;
 	case  SM_EMER:
-		if (PlayObstacleBuzzer() == 1) {
-			printf("DEBUG: Buzzer finished\n");
-			gsm_SysState = SM_WAIT;  // テスト用では待機状態へ。本番環境ではメインで
-		}
 		///終了時処理完了後に、初期化完了フラグを落としてください。
 		break;
 
@@ -208,40 +210,42 @@ void PlayMusic(void){
 			
 }
 
-		
-int PlayObstacleBuzzer(void) {
-	static unsigned int startTime = 0;
+int PlayObstacleBuzzer(void)
+{
+    static unsigned int startTime = 0;
     static int playing = 0;
-	
-	if (playing == 0) {
-		int f = 1000;               // ブザー音の周波数 1000 Hz
-		int divisor;
-		int value;
 
-		divisor = CLK / (f * RANGE); // PWMの分周値を計算
-		value = RANGE / 2;            // デューティ比50%
-
-		pwmSetClock(divisor);         // PWMクロックの分周を設定
-		pwmWrite(BUZZER, value);      // ブザーを鳴らす
-		
-		startTime = millis();  // 再生開始時刻を記録
-        playing = 1;
-
-        return 0;              // 再生中		pwmWrite(BUZZER, 0);  
-	}
-	
-	// 1秒経過したか確認
-    
-    if ((unsigned int)(millis() - startTime) >= 1000) {
-        pwmWrite(BUZZER, 0);   // ブザーを止める
-        playing = 0;
-
-        return 1;              // 再生完了
+    if (playing == 2) {
+        return 0;   // 再生完了後は何もしない
     }
 
-    return 0;                  // まだ再生中
-}
+    if (playing == 0) {
+        int f = 1000;
+        int divisor;
+        int value;
 
+        divisor = CLK / (f * RANGE);
+        value = RANGE / 2;
+
+        pwmSetClock(divisor);
+        pwmWrite(BUZZER, value);
+
+        startTime = millis();
+        playing = 1;
+
+        return 0;
+    }
+
+    if ((unsigned int)(millis() - startTime) >= 1000) {
+        pwmWrite(BUZZER, 0);
+        playing = 2;
+
+        return 1;   // 完了通知は1回だけ
+    }
+
+    return 0;
+}
+		
 
 /*****************************************************
  関数名  void g(int oct, int solfa, int length)

@@ -27,15 +27,25 @@
 
 #define T 100
 
+//#define DEBUG_DRIVE
+
 const int outGpio[4] = {MOT_RIGHT1, MOT_RIGHT2, MOT_LEFT1, MOT_LEFT2};
 
+void SlowStop(void);
+void ONESTOP_SlowStop(void);
 void Stop(void);
 void Forward(void);
+void LittleForward(void);
 void RightForward(void);
+void LittleRightForward(void);
 void LeftForward(void);
+void LittleLeftForward(void);
 void Reverse(void);
 void TurnRight(void);
 void TurnLeft(void);
+
+static int OldState = 0;
+static int OldPwm = 60;
 
 int task_3_output_main(void)
 {
@@ -44,12 +54,12 @@ int task_3_output_main(void)
 	int pwmRange = 200;
 	
 	printf("SysState = %d, Drive_inst = %d\n",
-           gsm_SysState, giDrive_inst);
+           gsmSys_mode_state, giSys_Motor_drive_inst);
 
-	switch (gsm_SysState)
+	switch (gsmSys_mode_state)
 	{
 		case SM_INIT:
-			printf("DEBUG PRINT SysState == %d\n", gsm_SysState);
+			printf("DEBUG PRINT SysState == %d\n", gsmSys_mode_state);
 
 			wiringPiSetupGpio();
 
@@ -73,6 +83,13 @@ int task_3_output_main(void)
 			delay(1000);
 			softPwmWrite(SERVO, 15);
 			delay(1000);
+			
+			#ifdef DEBUG_DRIVE
+			giSys_Motor_drive_inst = 8;      
+			gsmSys_mode_state = SM_RUNNING;
+			printf("gsmSys_mode_state = %d, giSys_Motor_drive_inst = %d\n",
+           gsmSys_mode_state, giSys_Motor_drive_inst);
+			#endif
 
 			/* TODO: 初期化完了フラグを設定 */
 			break;
@@ -83,9 +100,9 @@ int task_3_output_main(void)
 			break;
 
 		case SM_RUNNING:
-		printf("RUNNING: Drive_inst = %d\n", giDrive_inst);
+		printf("RUNNING: Drive_inst = %d\n", giSys_Motor_drive_inst);
 			/* 駆動指示値に応じてモータ制御 */
-			switch (giDrive_inst)
+			switch (giSys_Motor_drive_inst)
 			{
 			case 0:
 				Stop();
@@ -120,7 +137,7 @@ int task_3_output_main(void)
 				break;
 
 			case 8:
-				Stop();
+				SlowStop();
 				break;
 
 			default:
@@ -131,12 +148,11 @@ int task_3_output_main(void)
 			break;
 
 		case SM_ONESTOP:
-			/* 通常停止 */
-			Stop();
+			ONESTOP_SlowStop();
 			break;
 
 		case SM_EMER:
-			printf("DEBUG PRINT SysState == %d\n", gsm_SysState);
+			printf("DEBUG PRINT SysState == %d\n", gsmSys_mode_state);
 
 			/* 緊急停止 */
 			Stop();
@@ -147,7 +163,61 @@ int task_3_output_main(void)
 			Stop();
 			break;
 	}
+	OldState = gsmSys_mode_state;
+
     return EXIT_SUCCESS; 
+}
+
+void SlowStop(void){
+
+	if(OldState != SM_RUNNING){
+		OldPwm = 60;
+		softPwmWrite(MOT_RIGHT2, OldPwm);
+		softPwmWrite(MOT_RIGHT1, OldPwm);
+		softPwmWrite(MOT_LEFT2, OldPwm);
+		softPwmWrite(MOT_LEFT1, OldPwm);
+	}
+	else if(OldState == SM_RUNNING){
+		if (OldPwm >= 100){
+		softPwmWrite(MOT_RIGHT2, 100);
+		softPwmWrite(MOT_RIGHT1, 100);
+		softPwmWrite(MOT_LEFT2, 100);
+		softPwmWrite(MOT_LEFT1, 100);
+		}
+		else if(OldPwm < 100){
+		OldPwm += 10;
+		softPwmWrite(MOT_RIGHT2, OldPwm);
+		softPwmWrite(MOT_RIGHT1, OldPwm);
+		softPwmWrite(MOT_LEFT2, OldPwm);
+		softPwmWrite(MOT_LEFT1, OldPwm);
+		}
+	}
+}
+
+void ONESTOP_SlowStop(void){
+
+	if(OldState != SM_ONESTOP){
+		OldPwm = 60;
+		softPwmWrite(MOT_RIGHT2, OldPwm);
+		softPwmWrite(MOT_RIGHT1, OldPwm);
+		softPwmWrite(MOT_LEFT2, OldPwm);
+		softPwmWrite(MOT_LEFT1, OldPwm);
+	}
+	else if(OldState == SM_ONESTOP){
+		if (OldPwm >= 100){
+		softPwmWrite(MOT_RIGHT2, 100);
+		softPwmWrite(MOT_RIGHT1, 100);
+		softPwmWrite(MOT_LEFT2, 100);
+		softPwmWrite(MOT_LEFT1, 100);
+		}
+		else if(OldPwm < 100){
+		OldPwm += 10;
+		softPwmWrite(MOT_RIGHT2, OldPwm);
+		softPwmWrite(MOT_RIGHT1, OldPwm);
+		softPwmWrite(MOT_LEFT2, OldPwm);
+		softPwmWrite(MOT_LEFT1, OldPwm);
+		}
+	}
 }
 
 void Stop(void){
@@ -184,7 +254,7 @@ void Forward(void){
 void RightForward(void){
 
 	softPwmWrite(MOT_RIGHT2, 0);
-	softPwmWrite(MOT_RIGHT1, 30);
+	softPwmWrite(MOT_RIGHT1, 20);
 	softPwmWrite(MOT_LEFT2, 0);
 	softPwmWrite(MOT_LEFT1, 100);
 
@@ -195,7 +265,7 @@ void RightForward(void){
 void LittleRightForward(void){
 
 	softPwmWrite(MOT_RIGHT2, 0);
-	softPwmWrite(MOT_RIGHT1, 60);
+	softPwmWrite(MOT_RIGHT1, 40);
 	softPwmWrite(MOT_LEFT2, 0);
 	softPwmWrite(MOT_LEFT1, 100);
 
@@ -208,7 +278,7 @@ void LeftForward(void){
 	softPwmWrite(MOT_RIGHT2, 0);
 	softPwmWrite(MOT_RIGHT1, 100);
 	softPwmWrite(MOT_LEFT2, 0);
-	softPwmWrite(MOT_LEFT1, 30);
+	softPwmWrite(MOT_LEFT1, 20);
 
 	softPwmWrite(SERVO,18);
 
@@ -219,7 +289,7 @@ void LittleLeftForward(void){
 	softPwmWrite(MOT_RIGHT2, 0);
 	softPwmWrite(MOT_RIGHT1, 100);
 	softPwmWrite(MOT_LEFT2, 0);
-	softPwmWrite(MOT_LEFT1, 60);
+	softPwmWrite(MOT_LEFT1, 40);
 
 	softPwmWrite(SERVO,18);
 
