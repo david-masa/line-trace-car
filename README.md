@@ -1,3 +1,11 @@
+<img width="720" height="405" alt="1030" src="https://github.com/user-attachments/assets/cbe50030-6045-4bba-9807-b8ba4a468576" />
+
+
+
+
+
+
+
 ## 概要
 Raspberry Pi を使用した自律走行ロボットです。<br>
 3個のラインセンサでラインを検出し、モータを制御して走行します。<br>
