@@ -1,40 +1,19 @@
-<img width="720" height="405" alt="1030" src="https://github.com/user-attachments/assets/cbe50030-6045-4bba-9807-b8ba4a468576" />
-
-
-
-
-
-
-
+<img width="800" height="600" alt="PXL_20261028_032808331" src="https://github.com/user-attachments/assets/7937a963-3bea-45c5-8a67-4b5349f236f9" />
 ## 概要
 Raspberry Pi を使用した自律走行ロボットです。<br>
 3個のラインセンサでラインを検出し、モータを制御して走行します。<br>
 距離センサで障害物との距離を測定します。<br>
-障害物が15cm未満に近づくとモータを停止します。<br>
-
-またここにあるプログラムは職業訓練校にて、個人開発で作成したプログラムをもとに、グループでの共同開発を行いました。<br>
-ここには個人開発コードとグループ開発コードを掲載しています。<br>
-個人開発のコードおよびヘッダーには、個人開発であることを明記しています。<br>
+障害物が35cm以下に近づくとモータを停止します。<br>
 
 ## 動作(個人開発コードの動作)
 白色スイッチを押すと走行を開始します。<br>
 ラインセンサの状態に応じて前進・後退・左右の進行方向補正を行います。<br>
 ラインの状態変化に応じて左右に旋回します。<br>
-障害物が15cm未満になると停止し、距離が15cm以上になると走行制御に戻ります。<br>
-距離や旋回・停止状態は LCD に表示されます。<br>
+障害物が35cm以下になると停止し、距離が35cmより長くなると走行制御に戻ります。<br>
+距離は LCD に表示されます。<br>
 
-## センサ状態と動作(個人開発コードの動作)
-
-| センサ状態（右・中央・左） | 動作 |
-|---|---|
-| `000` | 前進 |
-| `010` | 後退 |
-| `100` | 右側へ補正 |
-| `110` | 右側へ大きく補正 |
-| `001` | 左側へ補正 |
-| `011` | 左側へ大きく補正 |
-| `101` | 前進 |
-| その他 | 停止 |
+動作ビデオ
+<img width="720" height="405" alt="1030" src="https://github.com/user-attachments/assets/cbe50030-6045-4bba-9807-b8ba4a468576" />
 
 ## 全体回路図
 <img width="1024" height="726" alt="ライントレースカー＿全体回路図" src="https://github.com/user-attachments/assets/436096e9-5113-4c67-98f8-805accc2e34c" />
@@ -106,3 +85,13 @@ Raspberry Pi を使用した自律走行ロボットです。<br>
 | — | 2×5（10P）フラットケーブル | DG01032-0019-01 | Herwell Asia | 1 | 106972 | 駆動基板とセンサ基板の接続用 |
 | — | ケーブルタイ | TRCV-200SSW | TRUSCO | 1 | — | 距離センサをサーボに固定 |
 | — | マジックテープ | — | — | 1 | — | 電池ボックスをプレートに取り付けるために使用 |
+
+
+<img width="600" height="800" alt="PXL_20261028_032824848" src="https://github.com/user-attachments/assets/41345b9c-fd9c-48dd-ba38-6c480c41cdf3" />
+<img width="800" height="600" alt="PXL_20261028_032803098" src="https://github.com/user-attachments/assets/dbeaae13-5179-4b53-b1ea-5d8c26e2537a" />
+<img width="800" height="600" alt="PXL_20261028_032758891" src="https://github.com/user-attachments/assets/e5cfc16c-91a7-4227-9be8-6b9ebd8b8c61" />
+<img width="800" height="600" alt="PXL_20261028_032753005" src="https://github.com/user-attachments/assets/dc25ce61-2cdb-443a-a3ed-54ae5fd2bf6f" />
+<img width="800" height="600" alt="PXL_20261028_032746993" src="https://github.com/user-attachments/assets/25eb8dbf-162b-4ec4-b27f-7b603e3900ec" />
+<img width="800" height="600" alt="PXL_20261028_021001096" src="https://github.com/user-attachments/assets/affbcde4-454c-4a89-9621-e08a6454d5af" />
+<img width="800" height="600" alt="PXL_20261028_020954164" src="https://github.com/user-attachments/assets/e5201b4c-9f83-46a5-84d0-fc166ba1c41d" />
+
