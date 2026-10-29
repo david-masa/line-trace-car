@@ -137,6 +137,7 @@ int ReadDistance(int fd2){			//距離センサ（cm変換）
 	dis12bit = (disU8bit << 4) | disL4bit;
 	
 	dis12bit = dis12bit >> 6;
-	
+	printf("kyori [%d]\n", dis12bit);
+
 	return dis12bit;
 }
