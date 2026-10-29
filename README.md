@@ -1,3 +1,7 @@
+
+
+<img width="1917" height="1079" alt="kadai4_6_ans" src="https://github.com/user-attachments/assets/47003ce7-c420-4958-9193-4441594cbc68" />
+
 ## 概要
 Raspberry Pi を使用した自律走行ロボットです。<br>
 3個のラインセンサでラインを検出し、モータを制御して走行します。<br>
