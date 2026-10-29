@@ -139,6 +139,14 @@ int task_3_output_main(void)
 			case 8:
 				SlowStop();
 				break;
+				
+			case 9:
+				TurnRight();
+				break;
+				
+			case 10:
+				TurnLeft();
+				break;
 
 			default:
 				/* 不正な駆動指示値は停止 */

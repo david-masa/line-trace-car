@@ -71,9 +71,6 @@ int task_5_sound_main(void)
 		pwmSetRange(RANGE);             //階調の設定
 		pwmSetMode(PWM_MODE_MS);        //信号波形モードの設定
 		
-		#ifdef DEBUG_RUN
-		gsmSys_mode_state = SM_RUNNING;		
-		#endif
 		
 		break;
 	case  SM_WAIT:
@@ -85,9 +82,6 @@ int task_5_sound_main(void)
 			printf("RUNNING: Drive_inst = %d\n", giSys_Motor_drive_inst);
 			MusicPlayComplete = 1;
 			
-		#ifdef DEBUG_ObstBuzzer
-		gsmSys_mode_state = SM_ONESTOP;		
-		#endif
 		
 		}
 		break;

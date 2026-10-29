@@ -117,7 +117,7 @@ int task_4_lcdled_main(void)
 		
 	case  SM_ONESTOP:
 		LedtimeNow = millis(); //LedtimeNowに現在時刻を入れている
-		if(LedtimeNow > LedtimeOld + LED_TOGGLE){		//LedtimeNowがledtimeOldと切り替え時間を足した数より大きければ
+		if(LedtimeNow > LedtimeOld + LED_EMER){		//LedtimeNowがledtimeOldと切り替え時間を足した数より大きければ
 			digitalWrite(LED1, led_state); //LEDに書き込む
 			led_state = !led_state;//論理反転
 			LedtimeOld = LedtimeNow; //Nowの値をOldにいれます

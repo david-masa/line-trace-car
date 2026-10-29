@@ -15,11 +15,12 @@
 #include "../LIB/MyPi.h"		///Lib関連
 #include "Global.h"				///
 
-#include "task_1_cntl_main.h"			///
-#include "task_2__main.h"	///これを、実際の名称にする
-#include "task_3__main.h"	///これを、実際の名称にする
-#include "task_4__main.h"	///これを、実際の名称にする
-#include "task_5__main.h"	///これを、実際の名称にする
+#include "task_1_cntl_main.h"	
+#include "task_1_math_main.h"		///
+#include "task_2_sensor_main.h"			///これを、実際の名称にする
+#include "task_3_output_main.h"	///これを、実際の名称にする
+#include "task_4_lcdled_main.h"	///これを、実際の名称にする
+#include "task_5_sound_main.h"	///これを、実際の名称にする
 
 int main(void)
 {
@@ -33,46 +34,51 @@ int main(void)
 int task_1_cntl_main(void)
 {
     
-    while (gb_Loop_f)
+    while (gbSys_Loop_f)
     {
-		switch (gsm_SysState)
+		switch (gsmSys_mode_state)
 		{
 		case  SM_INIT:
-			printf("DEBUG PRINT SysState == %d\n", gsm_SysState);
+			printf("DEBUG PRINT SysState == %d\n", gsmSys_mode_state);
 			///初期化処理完了後に、初期化完了フラグを立ててください。
-			task_2__main();
-			task_3__main();
-			task_4__main();
-			task_5__main();
-			
+			task_1_math_main();
+			task_2_sensor_main();
+			task_3_output_main();
+			task_4_lcdled_main();
+			task_5_sound_main();
+			gsmSys_mode_state = SM_WAIT;
 			break;
 		case  SM_WAIT:
-			task_2__main();
-			task_3__main();
-			task_4__main();
-			task_5__main();
+			task_1_math_main();
+			task_2_sensor_main();
+			task_3_output_main();
+			task_4_lcdled_main();
+			task_5_sound_main();
 			break;
 
 		case  SM_RUNNING:
-			task_2__main();
-			task_3__main();
-			task_4__main();
-			task_5__main();
+			task_1_math_main();
+			task_2_sensor_main();
+			task_3_output_main();
+			task_4_lcdled_main();
+			task_5_sound_main();
 			break;
 
 		case  SM_ONESTOP:
-			task_2__main();
-			task_3__main();
-			task_4__main();
-			task_5__main();
+			task_1_math_main();
+			task_2_sensor_main();
+			task_3_output_main();
+			task_4_lcdled_main();
+			task_5_sound_main();
 			break;
 
 		case  SM_EMER:
-			task_2__main();
-			task_3__main();
-			task_4__main();
-			task_5__main();
-			printf("DEBUG PRINT  SysState == %d\n", gsm_SysState);
+			task_1_math_main();
+			task_2_sensor_main();
+			task_3_output_main();
+			task_4_lcdled_main();
+			task_5_sound_main();
+			printf("DEBUG PRINT  SysState == %d\n", gsmSys_mode_state);
 			///終了時処理完了後に、初期化完了フラグを落としてください。
 			break;
 
