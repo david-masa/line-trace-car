@@ -30,11 +30,11 @@ Raspberry Pi を使用した自律走行ロボットです。<br>
 ビルドコマンドを下記のcustomに変更する必要があります。<br>
 またコマンドを実行”Execute”を　sudo "./app"　に変更してください。<br>
 
- * LineTraceCar
- * 		by Team.A
- * custom:	gcc -Wall *.c -o app -lwiringPi -lpthread -g -O0 /home/pi/MyApp/LIB/libMyPi.a -lm
- * org:		gcc -Wall -o "%e" "%f" -lwiringPi -lpthread -g -O0
- * Geanyのオプションの"%e"は実行ファイル名, "%f"はソースファイル名のこと
+LineTraceCar
+		by Team.A
+custom:	gcc -Wall *.c -o app -lwiringPi -lpthread -g -O0 /home/pi/MyApp/LIB/libMyPi.a -lm
+org:		gcc -Wall -o "%e" "%f" -lwiringPi -lpthread -g -O0
+Geanyのオプションの"%e"は実行ファイル名, "%f"はソースファイル名のこと
 
 
 ## 基本部品一覧
