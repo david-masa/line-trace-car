@@ -13,14 +13,14 @@ Raspberry Pi を使用した自律走行ロボットです。<br>
 距離は LCD に表示されます。<br>
 
 動作ビデオ
-<img width="720" height="405" alt="1030" src="https://github.com/user-attachments/assets/cbe50030-6045-4bba-9807-b8ba4a468576" />
+<img width="720" height="405" alt="1030" src="https://github.com/user-attachments/assets/cbe50030-6045-4bba-9807-b8ba4a468576" /><br>
 
 ## 全体回路図
-<img width="1024" height="726" alt="ライントレースカー＿全体回路図" src="https://github.com/user-attachments/assets/436096e9-5113-4c67-98f8-805accc2e34c" />
+<img width="1024" height="726" alt="ライントレースカー＿全体回路図" src="https://github.com/user-attachments/assets/436096e9-5113-4c67-98f8-805accc2e34c" /><br>
 
 
 ## センサ回路図
-<img width="1024" height="726" alt="ライントレースカー＿センサ回路図" src="https://github.com/user-attachments/assets/a2bdc3db-99d9-42b2-b49d-14b29cf30fd8" />
+<img width="1024" height="726" alt="ライントレースカー＿センサ回路図" src="https://github.com/user-attachments/assets/a2bdc3db-99d9-42b2-b49d-14b29cf30fd8" /><br>
 
 ## 注意事項
 本納品物は、開発時に機能ごとに分割した複数のソースファイルで構成されています。<br>
@@ -102,11 +102,11 @@ Geanyのオプションの"%e"は実行ファイル名, "%f"はソースファ�
 | — | マジックテープ | — | — | 1 | — | 電池ボックスをプレートに取り付けるために使用 |
 
 
-<img width="600" height="800" alt="PXL_20261028_032824848" src="https://github.com/user-attachments/assets/41345b9c-fd9c-48dd-ba38-6c480c41cdf3" />
-<img width="800" height="600" alt="PXL_20261028_032803098" src="https://github.com/user-attachments/assets/dbeaae13-5179-4b53-b1ea-5d8c26e2537a" />
-<img width="800" height="600" alt="PXL_20261028_032758891" src="https://github.com/user-attachments/assets/e5cfc16c-91a7-4227-9be8-6b9ebd8b8c61" />
-<img width="800" height="600" alt="PXL_20261028_032753005" src="https://github.com/user-attachments/assets/dc25ce61-2cdb-443a-a3ed-54ae5fd2bf6f" />
-<img width="800" height="600" alt="PXL_20261028_032746993" src="https://github.com/user-attachments/assets/25eb8dbf-162b-4ec4-b27f-7b603e3900ec" />
-<img width="800" height="600" alt="PXL_20261028_021001096" src="https://github.com/user-attachments/assets/affbcde4-454c-4a89-9621-e08a6454d5af" />
-<img width="800" height="600" alt="PXL_20261028_020954164" src="https://github.com/user-attachments/assets/e5201b4c-9f83-46a5-84d0-fc166ba1c41d" />
+<img width="600" height="800" alt="PXL_20261028_032824848" src="https://github.com/user-attachments/assets/41345b9c-fd9c-48dd-ba38-6c480c41cdf3" /><br>
+<img width="800" height="600" alt="PXL_20261028_032803098" src="https://github.com/user-attachments/assets/dbeaae13-5179-4b53-b1ea-5d8c26e2537a" /><br>
+<img width="800" height="600" alt="PXL_20261028_032758891" src="https://github.com/user-attachments/assets/e5cfc16c-91a7-4227-9be8-6b9ebd8b8c61" /><br>
+<img width="800" height="600" alt="PXL_20261028_032753005" src="https://github.com/user-attachments/assets/dc25ce61-2cdb-443a-a3ed-54ae5fd2bf6f" /><br>
+<img width="800" height="600" alt="PXL_20261028_032746993" src="https://github.com/user-attachments/assets/25eb8dbf-162b-4ec4-b27f-7b603e3900ec" /><br>
+<img width="800" height="600" alt="PXL_20261028_021001096" src="https://github.com/user-attachments/assets/affbcde4-454c-4a89-9621-e08a6454d5af" /><br>
+<img width="800" height="600" alt="PXL_20261028_020954164" src="https://github.com/user-attachments/assets/e5201b4c-9f83-46a5-84d0-fc166ba1c41d" /><br>
 
