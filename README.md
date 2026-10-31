@@ -1,6 +1,6 @@
 <img width="800" height="600" alt="PXL_20261028_032808331" src="https://github.com/user-attachments/assets/7937a963-3bea-45c5-8a67-4b5349f236f9" /><br>
 ## 概要
-Raspberry Pi を使用した自律走行ロボットです。<br>
+Raspberry Pi　4B を使用した自律走行ロボットです。<br>
 3個のラインセンサでラインを検出し、モータを制御して走行します。<br>
 距離センサで障害物との距離を測定します。<br>
 障害物が35cm以下に近づくとモータを停止します。<br>
@@ -29,13 +29,8 @@ Raspberry Pi を使用した自律走行ロボットです。<br>
 
 ビルドコマンドを下記のcustomに変更する必要があります。<br>
 またコマンドを実行”Execute”を　sudo "./app"　に変更してください。<br>
-
-LineTraceCar<br>
-		by Team.A<br>
 custom:	gcc -Wall *.c -o app -lwiringPi -lpthread -g -O0 /home/pi/MyApp/LIB/libMyPi.a -lm<br>
 org:		gcc -Wall -o "%e" "%f" -lwiringPi -lpthread -g -O0<br>
-Geanyのオプションの"%e"は実行ファイル名, "%f"はソースファイル名のこと<br>
-
 
 ## 基本部品一覧
 | 部品記号 | 品名 | 値・型式 | メーカー | 個数 | 秋月型番 | 備考 |
