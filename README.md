@@ -10,7 +10,7 @@ Raspberry Pi を使用した自律走行ロボットです。<br>
 ラインセンサの状態に応じて前進・後退・左右の進行方向補正を行います。<br>
 ラインの状態変化に応じて左右に旋回します。<br>
 障害物が35cm以下になると停止し、距離が35cmより長くなると走行制御に戻ります。<br>
-距離は LCD に表示されます。<br>
+動作モードは LCD に表示されます。<br>
 
 ## 動作ビデオ
 <img width="720" height="405" alt="1030" src="https://github.com/user-attachments/assets/cbe50030-6045-4bba-9807-b8ba4a468576" /><br>
