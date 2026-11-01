@@ -23,12 +23,7 @@ Raspberry Pi　4B を使用した自律走行ロボットです。<br>
 <img width="1024" height="726" alt="ライントレースカー＿センサ回路図" src="https://github.com/user-attachments/assets/a2bdc3db-99d9-42b2-b49d-14b29cf30fd8" /><br>
 
 ## 注意事項
-本納品物は、開発時に機能ごとに分割した複数のソースファイルで構成されています。<br>
-ビルド時にこれらのファイルを1つのファイルに結合し、納品用のファイルを生成しています。<br>
-そのため、開発用ファイルが複数存在しますが、正常な構成となります。<br>
-
-ビルドコマンドを下記のcustomに変更する必要があります。<br>
-またコマンドを実行”Execute”を　sudo "./app"　に変更してください。<br>
+コマンドを実行”Execute”を　sudo "./app"　に変更。<br>
 custom:	gcc -Wall *.c -o app -lwiringPi -lpthread -g -O0 /home/pi/MyApp/LIB/libMyPi.a -lm<br>
 org:		gcc -Wall -o "%e" "%f" -lwiringPi -lpthread -g -O0<br>
 
