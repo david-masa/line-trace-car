@@ -12,6 +12,9 @@ Raspberry Pi 4BとC言語を使用して開発した、自律走行型ライン�
 
 本プロジェクトでは、センサ情報の取得、モータ制御、周辺機器との連携など、組込みソフトウェアの設計・実装・テストに取り組みました。
 
+## 動作ビデオ
+<img width="720" height="405" alt="1030" src="https://github.com/user-attachments/assets/cbe50030-6045-4bba-9807-b8ba4a468576" /><br>
+
 ## 2. 主な機能
 
 | 機能 | 内容 |
@@ -103,9 +106,6 @@ GPIOを介してセンサやモータなどの周辺機器を制御し、ソフ�
 本リポジトリには、ソースコード、設計資料、テスト資料を格納しています。
 
 組込みソフトウェアの設計・実装からテストまでの開発内容を確認できます。
-
-## 動作ビデオ
-<img width="720" height="405" alt="1030" src="https://github.com/user-attachments/assets/cbe50030-6045-4bba-9807-b8ba4a468576" /><br>
 
 ## 全体回路図
 <img width="1024" height="726" alt="ライントレースカー＿全体回路図" src="https://github.com/user-attachments/assets/436096e9-5113-4c67-98f8-805accc2e34c" /><br>
