@@ -1,7 +1,7 @@
-<img width="800" height="600" alt="PXL_20261028_032808331" src="https://github.com/user-attachments/assets/7937a963-3bea-45c5-8a67-4b5349f236f9" /><br>
 # Line Trace Car
 
 **Raspberry Pi 4Bを使用した自律走行型ライントレースカー**
+<img width="800" height="600" alt="PXL_20261028_032808331" src="https://github.com/user-attachments/assets/7937a963-3bea-45c5-8a67-4b5349f236f9" /><br>
 
 ## 1. プロジェクト概要
 
