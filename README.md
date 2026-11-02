@@ -15,6 +15,18 @@ Raspberry Pi 4BとC言語を使用して開発した、自律走行型ライン�
 ## 動作ビデオ
 <img width="720" height="405" alt="1030" src="https://github.com/user-attachments/assets/cbe50030-6045-4bba-9807-b8ba4a468576" /><br>
 
+## 4. 対応コース
+
+本ライントレースカーは、同一の制御プログラムでオーバルコースとクランクコースの両方を走行できます。
+
+### オーバルコース
+
+![オーバルコース](images/oval-course.jpg)
+
+### クランクコース
+
+![クランクコース](images/crank-course.jpg)
+
 ## 2. 主な機能
 
 | 機能 | 内容 |
