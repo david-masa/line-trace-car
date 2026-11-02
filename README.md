@@ -192,11 +192,4 @@ org:		gcc -Wall -o "%e" "%f" -lwiringPi -lpthread -g -O0<br>
 | — | マジックテープ | — | — | 1 | — | 電池ボックスをプレートに取り付けるために使用 |
 
 
-<img width="600" height="800" alt="PXL_20261028_032824848" src="https://github.com/user-attachments/assets/41345b9c-fd9c-48dd-ba38-6c480c41cdf3" /><br>
-<img width="800" height="600" alt="PXL_20261028_032803098" src="https://github.com/user-attachments/assets/dbeaae13-5179-4b53-b1ea-5d8c26e2537a" /><br>
-<img width="800" height="600" alt="PXL_20261028_032758891" src="https://github.com/user-attachments/assets/e5cfc16c-91a7-4227-9be8-6b9ebd8b8c61" /><br>
-<img width="800" height="600" alt="PXL_20261028_032753005" src="https://github.com/user-attachments/assets/dc25ce61-2cdb-443a-a3ed-54ae5fd2bf6f" /><br>
-<img width="800" height="600" alt="PXL_20261028_032746993" src="https://github.com/user-attachments/assets/25eb8dbf-162b-4ec4-b27f-7b603e3900ec" /><br>
-
-
 
