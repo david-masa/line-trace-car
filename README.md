@@ -21,11 +21,11 @@ Raspberry Pi 4BとC言語を使用して開発した、自律走行型ライン�
 
 ### オーバルコース
 
-![オーバルコース](images/oval-course.jpg)
+<img width="800" height="600" alt="PXL_20261028_020954164" src="https://github.com/user-attachments/assets/e5201b4c-9f83-46a5-84d0-fc166ba1c41d" /><br>
 
 ### クランクコース
 
-![クランクコース](images/crank-course.jpg)
+<img width="800" height="600" alt="PXL_20261028_021001096" src="https://github.com/user-attachments/assets/affbcde4-454c-4a89-9621-e08a6454d5af" /><br>
 
 ## 2. 主な機能
 
@@ -201,6 +201,6 @@ org:		gcc -Wall -o "%e" "%f" -lwiringPi -lpthread -g -O0<br>
 <img width="800" height="600" alt="PXL_20261028_032758891" src="https://github.com/user-attachments/assets/e5cfc16c-91a7-4227-9be8-6b9ebd8b8c61" /><br>
 <img width="800" height="600" alt="PXL_20261028_032753005" src="https://github.com/user-attachments/assets/dc25ce61-2cdb-443a-a3ed-54ae5fd2bf6f" /><br>
 <img width="800" height="600" alt="PXL_20261028_032746993" src="https://github.com/user-attachments/assets/25eb8dbf-162b-4ec4-b27f-7b603e3900ec" /><br>
-<img width="800" height="600" alt="PXL_20261028_021001096" src="https://github.com/user-attachments/assets/affbcde4-454c-4a89-9621-e08a6454d5af" /><br>
-<img width="800" height="600" alt="PXL_20261028_020954164" src="https://github.com/user-attachments/assets/e5201b4c-9f83-46a5-84d0-fc166ba1c41d" /><br>
+
+
 
