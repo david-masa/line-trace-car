@@ -105,12 +105,10 @@ RaspberryPi 4BとC言語を使用して開発した、自律走行型ライン�
 ## 9. リポジトリ構成
 
 本リポジトリには、ソースコード、設計資料、テスト資料を格納しています。
-
 組込みソフトウェアの設計・実装からテストまでの開発内容を確認できます。
 
 ## 全体回路図
 <img width="1024" height="726" alt="ライントレースカー＿全体回路図" src="https://github.com/user-attachments/assets/436096e9-5113-4c67-98f8-805accc2e34c" /><br>
-
 
 ## センサ回路図
 <img width="1024" height="726" alt="ライントレースカー＿センサ回路図" src="https://github.com/user-attachments/assets/a2bdc3db-99d9-42b2-b49d-14b29cf30fd8" /><br>
@@ -183,4 +181,3 @@ org:		gcc -Wall -o "%e" "%f" -lwiringPi -lpthread -g -O0<br>
 | — | 2×5（10P）フラットケーブル | DG01032-0019-01 | Herwell Asia | 1 | 106972 | 駆動基板とセンサ基板の接続用 |
 | — | ケーブルタイ | TRCV-200SSW | TRUSCO | 1 | — | 距離センサをサーボに固定 |
 | — | マジックテープ | — | — | 1 | — | 電池ボックスをプレートに取り付けるために使用 |
-
