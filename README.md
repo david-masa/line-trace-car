@@ -27,14 +27,10 @@ RaspberryPi 4BとC言語を使用して開発した、自律走行型ライン�
 本ライントレースカーは、同一の制御プログラムでオーバルコースとクランクコースの両方を走行できます。
 
 ### オーバルコース
-
 <img width="800" height="600" alt="PXL_20261028_020954164" src="https://github.com/user-attachments/assets/e5201b4c-9f83-46a5-84d0-fc166ba1c41d" /><br>
 
 ### クランクコース
-
 <img width="800" height="600" alt="PXL_20261028_021001096" src="https://github.com/user-attachments/assets/affbcde4-454c-4a89-9621-e08a6454d5af" /><br>
-
-
 
 ## 4. 使用技術・開発環境
 
